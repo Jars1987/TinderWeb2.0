@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from 'firebase/auth';
 import { auth } from '../firebase';
 
 function Login() {
@@ -12,8 +16,14 @@ function Login() {
     formState: { errors },
   } = useForm();
 
-  const loginUser = data => {
-    console.log(data);
+  const loginUser = async data => {
+    const { email, password } = data;
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+    } catch (e) {
+      console.error(e.message);
+    }
   };
 
   const createuser = async data => {
@@ -82,7 +92,7 @@ function Login() {
           ) : (
             <form className='w-full' onSubmit={handleSubmit(createuser)}>
               <label className='mb-5 block'>
-                <span className='text-gray-100'>Name</span>
+                <span className='text-gray-100'>Full Name</span>
                 <input
                   className='form-input mt-1 w-full rounded border py-2 px-3 outline-none'
                   placeholder='Name...'
