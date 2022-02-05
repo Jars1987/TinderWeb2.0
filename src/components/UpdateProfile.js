@@ -48,7 +48,9 @@ function UpdateProfile() {
       return;
     }
 
-    const { uid, displayName } = auth.currentUser.uid;
+    console.log(auth.currentUser);
+    console.log(auth.currentUser.uid);
+    console.log(auth.currentUser.displayName);
 
     const storageRef = ref(storage, `users/${auth.currentUser.uid}`);
 
@@ -57,9 +59,9 @@ function UpdateProfile() {
     const url = await getDownloadURL(uploadTask.ref);
 
     try {
-      await setDoc(doc(db, 'users', uid), {
-        id: uid,
-        displayName: displayName,
+      await setDoc(doc(db, 'users', auth.currentUser.uid), {
+        id: auth.currentUser.uid,
+        displayName: auth.currentUser.displayName,
         photoUrl: url,
         job: data.occupation,
         age: data.age,
@@ -69,6 +71,7 @@ function UpdateProfile() {
       console.log('added to firestore');
     } catch (e) {
       console.log(e.message);
+      return;
     }
 
     try {
@@ -163,7 +166,9 @@ function UpdateProfile() {
             <button
               className='bg-red-400 text-white opacity-50 mt-1 rounded shadow py-3 px-3 hover:opacity-100 outline-none text-xl
             '>
-              Update Profile
+              {auth.currentUser.photoURL === null
+                ? 'Create Profile'
+                : 'Update Profile'}
             </button>
           </form>
           <p

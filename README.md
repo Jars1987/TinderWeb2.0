@@ -2,5 +2,8 @@
 
 ## Todo List
 
-1- Get new Tinder Logo for the Header 2- Login Logic to route user to Login page
-if not logged in
+Cons:
+
+- Using front end (React) in a App that does a lot of API calls to a diferent
+  server make the App slow and with bad experince.
+- Next JS and the Server Side Rendering would be a better choice for performance
