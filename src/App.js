@@ -8,11 +8,14 @@ import UpdateProfile from './components/UpdateProfile';
 import LoadingScreen from './components/LoadingScreen';
 import ModalMatch from './components/ModalMatch';
 import MessageScreen from './components/MessageScreen';
+import PreferencesScreen from './components/PreferencesScreen';
 
 function App() {
   const [user, loading] = useAuthState(auth);
   const location = useLocation();
   const state = location.state;
+
+  console.log(location.state);
 
   if (loading) {
     return <LoadingScreen />;
@@ -26,6 +29,7 @@ function App() {
           <Route path='updateprofile' element={<UpdateProfile />} />
           <Route path='chats' element={<Chats />} />
           <Route path='message' element={<MessageScreen />} />
+          <Route path='preferences' element={<PreferencesScreen />} />
         </Routes>
 
         {state?.backgroundLocation && (

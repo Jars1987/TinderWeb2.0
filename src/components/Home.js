@@ -6,16 +6,21 @@ import {
   where,
 } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { auth, db } from '../firebase';
 import Header from './Header';
 import LoadingScreen from './LoadingScreen';
 import TinderCards from './TinderCards';
+import filterPeopleArr from '../lib/filterPeopleArr';
 
 function Home() {
   const [checkProfile, setCheckProfile] = useState(true);
   const [people, setPeople] = useState([]);
+  const [filteredPeople, setFilteredPeople] = useState([]);
   const navigate = useNavigate('/');
+  const location = useLocation();
+
+  console.log(filteredPeople);
 
   useEffect(() => {
     if (auth.currentUser.photoURL === null) {
@@ -61,6 +66,17 @@ function Home() {
     return unsub;
   }, []);
 
+  useEffect(() => {
+    if (!location.state.searchPreferences) {
+      setFilteredPeople(filterPeopleArr(people, 'both', [18, 100]));
+      console.log('Filtered function called no location');
+    } else {
+      const { gender, ageRange } = location.state.searchPreferences;
+      setFilteredPeople(filterPeopleArr(people, gender, ageRange));
+      console.log('Filtered function called with location');
+    }
+  }, [people, location]);
+
   return (
     <div>
       {checkProfile && people.length === 0 ? (
@@ -69,7 +85,7 @@ function Home() {
         <>
           <Header />
           <div className='bg-gray-200'>
-            <TinderCards people={people} />
+            <TinderCards people={filteredPeople} />
           </div>
         </>
       )}

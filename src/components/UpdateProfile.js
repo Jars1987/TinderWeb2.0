@@ -16,7 +16,9 @@ Todo:
 
 function UpdateProfile() {
   const inputRef = useRef(null);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [photoErrorMessage, setPhotoErrorMessage] = useState('');
+  const [genderErrorMessage, setGenderErrorMessage] = useState('');
+  const [gender, setGender] = useState('');
   const [photo64, setPhoto64] = useState('');
   const [fileName, setFileName] = useState('');
   const navigate = useNavigate();
@@ -27,8 +29,13 @@ function UpdateProfile() {
     formState: { errors },
   } = useForm();
 
+  const selectGender = e => {
+    setGender(e.target.value);
+    setGenderErrorMessage('');
+  };
+
   const convertPhoto = e => {
-    setErrorMessage('');
+    setPhotoErrorMessage('');
 
     setFileName(e.target.files[0].name);
 
@@ -43,14 +50,20 @@ function UpdateProfile() {
   };
 
   const submitPhoto = async data => {
+    if (!inputRef.current.value && gender.length < 1) {
+      setPhotoErrorMessage('A profile Picture is required');
+      setGenderErrorMessage('Gender is required');
+      return;
+    }
     if (!inputRef.current.value) {
-      setErrorMessage('A profile Picture is required');
+      setPhotoErrorMessage('A profile Picture is required');
       return;
     }
 
-    console.log(auth.currentUser);
-    console.log(auth.currentUser.uid);
-    console.log(auth.currentUser.displayName);
+    if (gender.length < 1) {
+      setGenderErrorMessage('Gender is required');
+      return;
+    }
 
     const storageRef = ref(storage, `users/${auth.currentUser.uid}`);
 
@@ -63,7 +76,7 @@ function UpdateProfile() {
         id: auth.currentUser.uid,
         displayName: auth.currentUser.displayName,
         photoUrl: url,
-        job: data.occupation,
+        gender: gender,
         age: data.age,
         timestamp: serverTimestamp(),
       });
@@ -105,7 +118,7 @@ function UpdateProfile() {
         />
 
         <div className='max-w-xl mx-auto'>
-          <p className='text-2xl text-gray-500 p-2 font-bold'>
+          <p className='text-2xl text-gray-500 px-2 pb-2 font-bold'>
             Welcome {auth.currentUser.displayName}
           </p>
           <form
@@ -118,7 +131,7 @@ function UpdateProfile() {
               onClick={() => {
                 inputRef.current.click();
               }}
-              className='mt-1 w-full rounded border outline-none py-2 px-3 bg-white flex space-x-1 justify-center cursor-pointer shadow shadow-white'>
+              className='mt-1 w-full rounded border outline-none px-3 bg-white flex space-x-1 justify-center cursor-pointer shadow shadow-white'>
               <CameraIcon className='h-5 w-5' />
               <span>{fileName ? fileName : 'Select Photo'}</span>
               <input
@@ -132,25 +145,11 @@ function UpdateProfile() {
               />
             </div>
             <p className='text-sm text-yellow-500 text-center'>
-              {errorMessage ? `* ${errorMessage} *` : ''}
+              {photoErrorMessage ? `* ${photoErrorMessage} *` : ''}
             </p>
             <div className='flex flex-col items-center pb-2 px-3'>
               <p className='text-center text-red-500 p-4 font-bold'>
-                Step 2: Add an Ocupation
-              </p>
-              <input
-                className='bg-white outline-none placeholder:text-gray-400 text-black text-center text-xl'
-                type='text'
-                placeholder='Enter yout occupation'
-                {...register('occupation', { required: true })}
-              />
-              <p className='text-sm text-yellow-500'>
-                {errors.occupation && '* Occupation is required *'}
-              </p>
-            </div>
-            <div className='flex flex-col items-center pb-2 px-3'>
-              <p className='text-center text-red-500 p-4 font-bold'>
-                Step 3: Add the Age
+                Step 2: Add the Age
               </p>
               <input
                 className='bg-white outline-none placeholder:text-gray-400 text-black text-center text-xl pb-2'
@@ -160,6 +159,46 @@ function UpdateProfile() {
               />
               <p className='text-sm text-yellow-500'>
                 {errors.age && '* Age is required *'}
+              </p>
+            </div>
+            <div className='flex flex-col items-center pb-2 px-3'>
+              <p className='text-center text-red-500 p-4 font-bold'>
+                Step 3: Select Gender
+              </p>
+
+              <div className='w-full'>
+                <div className='flex justify-around items-center'>
+                  <label className='flex flex-col items-center'>
+                    <img
+                      src='https://toppng.com/uploads/preview/icon-man-man-icon-vector-11553488960mmhfa3e4qa.png'
+                      alt='Men'
+                      className='w-14 h-20 pb-2 opacity-90'
+                    />
+                    <input
+                      type='radio'
+                      name='gender'
+                      value='male'
+                      onChange={selectGender}
+                    />
+                  </label>
+
+                  <label className='flex flex-col items-center'>
+                    <img
+                      src='https://previews.123rf.com/images/asmati/asmati1602/asmati160202987/52180945-woman-sign-flat-style-icon-on-transparent-background.jpg'
+                      alt='Women'
+                      className='w-14 h-20 pb-2 opacity-90'
+                    />
+                    <input
+                      type='radio'
+                      name='gender'
+                      value='female'
+                      onChange={selectGender}
+                    />
+                  </label>
+                </div>
+              </div>
+              <p className='text-sm text-yellow-500'>
+                {genderErrorMessage ? `* ${genderErrorMessage} *` : ''}
               </p>
             </div>
 

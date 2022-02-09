@@ -1,15 +1,14 @@
-import { ChatAlt2Icon } from '@heroicons/react/solid';
+import { ChatAlt2Icon, CogIcon } from '@heroicons/react/solid';
 import Button from '@material-tailwind/react/Button';
-import { signOut } from 'firebase/auth';
+
 import { useNavigate } from 'react-router-dom';
-import { auth } from '../firebase';
 
 function Header() {
   const navigate = useNavigate();
   return (
     <div className='max-w-4xl mx-auto flex justify-between p-5'>
       <Button
-        onClick={() => signOut(auth)}
+        onClick={() => navigate('/preferences')}
         color='lightgray'
         buttonType='link'
         size='regular'
@@ -17,12 +16,7 @@ function Header() {
         block={false}
         iconOnly={true}
         ripple='dark'>
-        <img
-          className='w-8 h-8 rounded-full'
-          loading='lazy'
-          src={auth.currentUser.photoURL}
-          alt={auth.currentUser.displayName}
-        />
+        <CogIcon className='w-8 h-8 text-gray-400' />
       </Button>
 
       <img

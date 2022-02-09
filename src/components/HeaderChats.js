@@ -10,7 +10,13 @@ function HeaderChats({ title, callEnabled }) {
     <div className='max-w-4xl mx-auto flex justify-between p-5 items-center'>
       <div className='flex items-center'>
         <Button
-          onClick={() => navigate(-1, { state: { backgroundLocation: false } })}
+          onClick={() => {
+            if (callEnabled) {
+              navigate(-1);
+            } else {
+              navigate('/', { state: { backgroundLocation: false } });
+            }
+          }}
           color='gray'
           buttonType='link'
           size='lg'
@@ -25,7 +31,6 @@ function HeaderChats({ title, callEnabled }) {
       {callEnabled && (
         <Button
           className='mt-2'
-          onClick={() => navigate(-1, { state: { backgroundLocation: false } })}
           color='ligthgray'
           buttonType='link'
           size='lg'

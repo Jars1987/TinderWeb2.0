@@ -1,4 +1,4 @@
-import { createRef, useMemo, useRef, useState } from 'react';
+import { createRef, useEffect, useMemo, useRef, useState } from 'react';
 import TinderCard from 'react-tinder-card';
 import { XIcon } from '@heroicons/react/solid';
 import { HeartIcon } from '@heroicons/react/solid';
@@ -20,6 +20,12 @@ function TinderCards({ people }) {
   const [zIndex, setZIndex] = useState('-z-50');
   const [matchedUsers, setMatchedUsers] = useState({});
   let location = useLocation();
+
+  useEffect(() => {
+    if (people.length === 0) {
+      setZIndex('z-1');
+    }
+  }, [people]);
 
   const swipeLeft = index => {
     if (!people[index]) return;
@@ -138,10 +144,7 @@ function TinderCards({ people }) {
                 className='relative max-w-[85vh] w-[600px] h-[55vh] rounded-t-2xl bg-cover bg-center p-5 bg-no-repeat cursor-pointer'></div>
               <div className='bg-white shadow-md rounded-b-2xl h-[12vh] p-5'>
                 <div className='flex justify-between w-10/12 mx-auto'>
-                  <div>
-                    <p className='text-xl font-bold'>{person.displayName}</p>
-                    <p>{person.job}</p>
-                  </div>
+                  <p className='text-xl font-bold'>{person.displayName}</p>
                   <p className='text-xl font-bold'>{person.age}</p>
                 </div>
               </div>
