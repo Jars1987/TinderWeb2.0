@@ -1,7 +1,11 @@
+import ChatList from './ChatList';
+import HeaderChats from './HeaderChats';
+
 function Chats() {
   return (
-    <div>
-      <h1>this is the chat screen</h1>
+    <div className='bg-gray-100 max-w-4xl mx-auto'>
+      <HeaderChats title='Chat' />
+      <ChatList />
     </div>
   );
 }

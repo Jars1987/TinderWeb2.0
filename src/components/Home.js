@@ -6,7 +6,7 @@ import {
   where,
 } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { auth, db } from '../firebase';
 import Header from './Header';
 import LoadingScreen from './LoadingScreen';
@@ -16,8 +16,6 @@ function Home() {
   const [checkProfile, setCheckProfile] = useState(true);
   const [people, setPeople] = useState([]);
   const navigate = useNavigate('/');
-
-  let location = useLocation();
 
   useEffect(() => {
     if (auth.currentUser.photoURL === null) {

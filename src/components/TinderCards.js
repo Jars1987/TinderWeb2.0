@@ -135,7 +135,7 @@ function TinderCards({ people }) {
                 style={{
                   backgroundImage: `url(${person.photoUrl})`,
                 }}
-                className='relative max-w-[85vh] w-[600px] h-[55vh] rounded-t-2xl bg-cover bg-center p-5 bg-no-repeat'></div>
+                className='relative max-w-[85vh] w-[600px] h-[55vh] rounded-t-2xl bg-cover bg-center p-5 bg-no-repeat cursor-pointer'></div>
               <div className='bg-white shadow-md rounded-b-2xl h-[12vh] p-5'>
                 <div className='flex justify-between w-10/12 mx-auto'>
                   <div>

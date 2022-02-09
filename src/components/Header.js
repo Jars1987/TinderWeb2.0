@@ -33,6 +33,7 @@ function Header() {
         onClick={() => navigate('/updateprofile')}
       />
       <Button
+        onClick={() => navigate('/chats')}
         color='lightgray'
         buttonType='link'
         size='regular'
