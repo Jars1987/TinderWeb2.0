@@ -26,7 +26,7 @@ function Home() {
     if (auth.currentUser.photoURL === null) {
       navigate('/updateprofile');
     }
-    setTimeout(() => setCheckProfile(false), 500);
+    setTimeout(() => setCheckProfile(() => false), 1500);
   }, [navigate]);
 
   useEffect(() => {
@@ -67,7 +67,7 @@ function Home() {
   }, []);
 
   useEffect(() => {
-    if (!location.state.searchPreferences) {
+    if (!location.state || !location.state.searchPreferences) {
       setFilteredPeople(filterPeopleArr(people, 'both', [18, 100]));
       console.log('Filtered function called no location');
     } else {

@@ -6,9 +6,11 @@ import {
   updateProfile,
 } from 'firebase/auth';
 import { auth } from '../firebase';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
   const [hasAccount, setHasAccount] = useState(true);
+  const navigate = useNavigate();
   const {
     getValues,
     register,
@@ -21,6 +23,7 @@ function Login() {
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
+      navigate('/');
     } catch (e) {
       console.error(e.message);
     }
@@ -36,6 +39,7 @@ function Login() {
     await updateProfile(userCredential.user, {
       displayName: name,
     });
+    navigate('/');
   };
 
   return (

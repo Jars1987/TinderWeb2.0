@@ -71,7 +71,6 @@ function MessageScreen() {
             <Button
               onClick={sendMessage}
               className='mx-2 px-5'
-              onClick={sendMessage}
               color='pink'
               buttonType='link'
               size='lg'

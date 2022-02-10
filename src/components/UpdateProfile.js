@@ -170,9 +170,9 @@ function UpdateProfile() {
                 <div className='flex justify-around items-center'>
                   <label className='flex flex-col items-center'>
                     <img
-                      src='https://toppng.com/uploads/preview/icon-man-man-icon-vector-11553488960mmhfa3e4qa.png'
+                      src='https://cdn-icons-png.flaticon.com/512/145/145843.png'
                       alt='Men'
-                      className='w-14 h-20 pb-2 opacity-90'
+                      className='w-18 h-20 pb-2 opacity-90'
                     />
                     <input
                       type='radio'
@@ -184,9 +184,9 @@ function UpdateProfile() {
 
                   <label className='flex flex-col items-center'>
                     <img
-                      src='https://previews.123rf.com/images/asmati/asmati1602/asmati160202987/52180945-woman-sign-flat-style-icon-on-transparent-background.jpg'
+                      src='https://cdn-icons-png.flaticon.com/512/219/219969.png'
                       alt='Women'
-                      className='w-14 h-20 pb-2 opacity-90'
+                      className='w-18 h-20 rounded-full pb-2 opacity-90'
                     />
                     <input
                       type='radio'

@@ -27,7 +27,9 @@ function PreferencesHeader() {
 
       <Button
         className='mt-2'
-        onClick={() => signOut(auth)}
+        onClick={() => {
+          signOut(auth);
+        }}
         color='ligthgray'
         buttonType='link'
         size='lg'

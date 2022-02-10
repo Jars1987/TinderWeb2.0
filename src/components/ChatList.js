@@ -24,9 +24,9 @@ function ChatList() {
 
   useEffect(() => {
     const time = setTimeout(() => {
-      setIsLoading(false);
+      setIsLoading(() => false);
     }, 500);
-    return clearTimeout(time);
+    return () => clearTimeout(time);
   }, [user]);
 
   const flatList =
@@ -38,7 +38,7 @@ function ChatList() {
     return matches.length > 0 ? (
       <div className='overflow-scroll h-full'>{flatList}</div>
     ) : isLoading ? (
-      <div className='max-w-xl text-center'>
+      <div className='max-w-xl mx-auto flex justify-center'>
         <button
           type='button'
           className=' border-[15px] border-t-gray-100 animate-spin border-b-gray-300 border-r-400 rounded-full p-10'
