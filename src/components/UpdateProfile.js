@@ -109,7 +109,7 @@ function UpdateProfile() {
 
   return (
     <div className='h-screen bg-cover flex flex-col items-center justify-center'>
-      <div className='flex flex-col space-y-5'>
+      <div className='flex flex-col'>
         <img
           className='w-3/12 mx-auto'
           loading='lazy'
@@ -118,12 +118,12 @@ function UpdateProfile() {
         />
 
         <div className='max-w-xl mx-auto'>
-          <p className='text-2xl text-gray-500 px-2 pb-2 font-bold'>
+          <p className='text-2xl text-gray-500 px-2 pb-2 text-center font-bold'>
             Welcome {auth.currentUser.displayName}
           </p>
           <form
             onSubmit={handleSubmit(submitPhoto)}
-            className='flex flex-col space-y-3'>
+            className='flex flex-col space-y-1'>
             <p className='text-center text-red-500 p-4 font-bold'>
               Step 1: Add a Profile Picture{' '}
             </p>
@@ -147,7 +147,7 @@ function UpdateProfile() {
             <p className='text-sm text-yellow-500 text-center'>
               {photoErrorMessage ? `* ${photoErrorMessage} *` : ''}
             </p>
-            <div className='flex flex-col items-center pb-2 px-3'>
+            <div className='flex flex-col items-center px-3'>
               <p className='text-center text-red-500 p-4 font-bold'>
                 Step 2: Add the Age
               </p>
@@ -161,12 +161,12 @@ function UpdateProfile() {
                 {errors.age && '* Age is required *'}
               </p>
             </div>
-            <div className='flex flex-col items-center pb-2 px-3'>
+            <div className='flex flex-col items-center pb-6 px-3'>
               <p className='text-center text-red-500 p-4 font-bold'>
                 Step 3: Select Gender
               </p>
 
-              <div className='w-full'>
+              <div className='w-full pt-2'>
                 <div className='flex justify-around items-center'>
                   <label className='flex flex-col items-center'>
                     <img

@@ -44,6 +44,7 @@ Pros:
 - Improved React Router Skills as I add to use useLocation state to pass data
   throw Routes
 - Learned how to do implement a Modal using React Router
+- Learned how to improve performance using useMemo Hook
 - My first job
 
 Cons:

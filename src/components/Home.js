@@ -5,7 +5,7 @@ import {
   query,
   where,
 } from 'firebase/firestore';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { auth, db } from '../firebase';
 import Header from './Header';
@@ -77,6 +77,10 @@ function Home() {
     }
   }, [people, location]);
 
+  const tinderCards = useMemo(() => {
+    return <TinderCards people={filteredPeople} />;
+  }, [filteredPeople]);
+
   return (
     <div>
       {checkProfile && people.length === 0 ? (
@@ -84,9 +88,7 @@ function Home() {
       ) : (
         <>
           <Header />
-          <div className='bg-gray-200'>
-            <TinderCards people={filteredPeople} />
-          </div>
+          <div className='bg-gray-200'>{tinderCards}</div>
         </>
       )}
     </div>
